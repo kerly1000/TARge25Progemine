@@ -1,0 +1,55 @@
+﻿@model TARge25Shop.Models.RealEstate.RealEstateDetailsViewModel
+
+<div class="h1">
+    Real Estate Details
+</div>
+
+<div class="mb-3">
+    <strong>Area:</strong>
+    @Model.Area
+</div>
+
+<div class="mb-3">
+    <strong>Location:</strong>
+    @Model.Location
+</div>
+
+<div class="mb-3">
+    <strong>Room Number:</strong>
+    @Model.RoomNumber
+</div>
+
+<div class="mb-3">
+    <strong>Building Type:</strong>
+    @Model.BuildingType
+</div>
+
+<div class="mb-3">
+    <strong>Created At:</strong>
+    @Model.CreatedAt
+</div>
+
+<div class="mb-3">
+    <strong>Modified At:</strong>
+    @Model.ModifiedAt
+</div>
+
+<a asp-action="Update"
+       asp-controller="RealEstate"
+       asp-route-id="@Model.Id"
+       class="btn btn-primary">
+    Update
+</a>
+
+<a asp-action="Delete"
+       asp-controller="RealEstate"
+       asp-route-id="@Model.Id"
+       class="btn btn-outline-danger">
+    Delete
+</a>
+
+<a asp-action="Index"
+       asp-controller="RealEstate"
+       class="btn btn-secondary">
+    Back
+</a>

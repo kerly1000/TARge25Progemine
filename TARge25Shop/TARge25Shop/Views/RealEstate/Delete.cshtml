@@ -1,0 +1,56 @@
+﻿@model TARge25Shop.Models.RealEstate.RealEstateDeleteViewModel
+
+<div class="h1">
+    Delete Real Estate
+</div>
+
+<div class="alert alert-danger">
+    Are you sure you want to delete this real estate?
+</div>
+
+<div class="mb-3">
+    <strong>Area:</strong>
+    @Model.Area
+</div>
+
+<div class="mb-3">
+    <strong>Location:</strong>
+    @Model.Location
+</div>
+
+<div class="mb-3">
+    <strong>Room Number:</strong>
+    @Model.RoomNumber
+</div>
+
+<div class="mb-3">
+    <strong>Building Type:</strong>
+    @Model.BuildingType
+</div>
+
+<div class="mb-3">
+    <strong>Created At:</strong>
+    @Model.CreatedAt
+</div>
+
+<div class="mb-3">
+    <strong>Modified At:</strong>
+    @Model.ModifiedAt
+</div>
+
+<form asp-action="DeleteConfirmation"
+      asp-controller="RealEstate"
+      method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">
+        Delete
+    </button>
+
+    <a asp-action="Index"
+           asp-controller="RealEstate"
+           class="btn btn-secondary">
+        Cancel
+    </a>
+</form>

@@ -1,0 +1,76 @@
+﻿@*
+    
+*@
+@{
+}
+@model IEnumerable<TARge25Shop.Models.RealEstate.RealEstateIndexViewModel>
+
+<div>
+    <a asp-action="Create" asp-controller="RealEstate" class="btn btn-primary">
+        Create
+    </a>
+</div>
+
+@{
+    short rowNumber = 1;
+}
+
+<div class="h1">
+    Real Estate
+</div>
+
+<form method="get">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nr</th>
+                <th scope="col">Area</th>
+                <th scope="col">Location</th>
+                <th scope="col">Rooms</th>
+                <th scope="col">Building Type</th>
+                <th scope="col">Created</th>
+                <th scope="col">Modified</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var realEstate in Model)
+            {
+                <tr>
+                    <td>@rowNumber</td>
+                    <td>@realEstate.Area</td>
+                    <td>@realEstate.Location</td>
+                    <td>@realEstate.RoomNumber</td>
+                    <td>@realEstate.BuildingType</td>
+                    <td>@realEstate.CreatedAt</td>
+                    <td>@realEstate.ModifiedAt</td>
+                    <td>
+                        <a asp-action="Details"
+                               asp-controller="RealEstate"
+                               asp-route-id="@realEstate.Id"
+                               class="btn btn-primary">
+                            Details
+                        </a>
+
+                        <a asp-action="Update"
+                               asp-controller="RealEstate"
+                               asp-route-id="@realEstate.Id"
+                               class="btn btn-primary">
+                            Update
+                        </a>
+
+                        <a asp-action="Delete"
+                               asp-controller="RealEstate"
+                               asp-route-id="@realEstate.Id"
+                               class="btn btn-outline-danger">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+
+                rowNumber += 1;
+            }
+        </tbody>
+    </table>
+</form>
