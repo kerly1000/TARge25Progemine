@@ -1,77 +1,68 @@
 ﻿@model TARge25Shop.Models.RealEstate.RealEstateCreateUpdateViewModel
 
-@if (Model.Id.HasValue)
-{
-    <h1>
-        Update
-    </h1>
-}
-else
-{
-    <h1>
-        Create
-    </h1>
+@{
+    bool isCreate = Model.Id == null;
+    string title = isCreate ? "Create Real Estate" : "Update Real Estate";
 }
 
-<form method="post" enctype="multipart/form-data">
+<div class="h1">
+    @title
+</div>
+
+<form asp-action="@(isCreate ? "Create" : "Update")"
+      asp-controller="RealEstate"
+      method="post">
+
     <input asp-for="Id" type="hidden" />
-    <input asp-for="CreatedAt" type="hidden" />
-    <input asp-for="ModifiedAt" type="hidden" />
 
-    <div class="form-group row">
-        <label asp-for="Area" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-10">
-            <input asp-for="Area" class="form-control" />
-        </div>
+    <div class="mb-3">
+        <label asp-for="Area" class="form-label">Area</label>
+        <input asp-for="Area" class="form-control" />
+        <span asp-validation-for="Area" class="text-danger"></span>
     </div>
 
-    <div class="form-group row">
-        <label asp-for="Location" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-10">
-            <input asp-for="Location" class="form-control" />
-        </div>
+    <div class="mb-3">
+        <label asp-for="Location" class="form-label">Location</label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
     </div>
 
-    <div class="form-group row">
-        <label asp-for="RoomNumber" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-10">
-            <input asp-for="RoomNumber" class="form-control" />
-        </div>
+    <div class="mb-3">
+        <label asp-for="RoomNumber" class="form-label">Room Number</label>
+        <input asp-for="RoomNumber" class="form-control" />
+        <span asp-validation-for="RoomNumber" class="text-danger"></span>
     </div>
 
-    <div class="form-group row">
-        <label asp-for="BuildingType" class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-10">
-            <input asp-for="BuildingType" class="form-control" />
-        </div>
+    <div class="mb-3">
+        <label asp-for="BuildingType" class="form-label">Building Type</label>
+        <input asp-for="BuildingType" class="form-control" />
+        <span asp-validation-for="BuildingType" class="text-danger"></span>
     </div>
 
-    <div class="form-group row">
-        <label asp-for="Files" class="control-label"></label>
-        <div class="col-sm-10">
-            <input asp-for="Files" multiple type="file" class="form-control" />
-        </div>
-    </div
-
-    <div>
-        @foreach(var image in Model.Image)
-            {
-                <partial name="_Images" model="image" />
-            }
-        </div>
-
-    <hr />
-    <br />
-
-    @if (Model.Id.HasValue)
+    @if (!isCreate)
     {
-        <input asp-action="update" asp-controller="realEstate" type="submit" class="btn btn-success" value="Update" />
-    }
-    else
-    {
-        <input asp-action="create" asp-controller="realEstate" type="submit" class="btn btn-success" value="Create" />
+        <div class="mb-3">
+            <label asp-for="CreatedAt" class="form-label">Created At</label>
+            <input asp-for="CreatedAt" class="form-control" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ModifiedAt" class="form-label">Modified At</label>
+            <input asp-for="ModifiedAt" class="form-control" readonly />
+        </div>
     }
 
-    <a asp-action="Index" asp-controller="realEstate" class="btn btn-secondary">Back to List</a>
+    <button type="submit" class="btn btn-primary">
+        @(isCreate ? "Create" : "Update")
+    </button>
+
+    <a asp-action="Index"
+           asp-controller="RealEstate"
+           class="btn btn-secondary">
+        Cancel
+    </a>
 </form>
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

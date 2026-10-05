@@ -64,21 +64,26 @@ namespace TARge25Shop.ApplicationServices.Services
 
         public async Task<RealEstate> DetailAsync(Guid id)
         {
-            var realestate = await _context.RealEstates
+            var realEstate = await _context.RealEstates
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            return realestate;
+            return realEstate;
         }
 
         public async Task<RealEstate> Delete(Guid id)
         {
-            var realestate = await _context.RealEstates
+            var result = await _context.RealEstates
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            _context.RealEstates.Remove(realestate);
+            if (result == null)
+            {
+                return null;
+            }
+
+            _context.RealEstates.Remove(result);
             await _context.SaveChangesAsync();
 
-            return realestate;
+            return result;
         }
     }
 }

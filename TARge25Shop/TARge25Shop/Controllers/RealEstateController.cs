@@ -25,17 +25,18 @@ namespace TARge25Shop.Controllers
         {
             var result = _context.RealEstates
                 .Select(x => new RealEstateIndexViewModel
-                {
-                    Id = x.Id,
-                    Area = x.Area,
-                    Location = x.Location,
-                    RoomNumber = x.RoomNumber,
+            {
+                Id = x.Id,
+                Area = x.Area,
+                Location = x.Location,
+                RoomNumber = x.RoomNumber,
                     BuildingType = x.BuildingType
-                });
+            });
 
             return View(result);
         }
 
+        // GET: RealEstate/Create
         [HttpGet]
         public IActionResult Create()
         {
@@ -44,6 +45,7 @@ namespace TARge25Shop.Controllers
             return View("CreateUpdate", result);
         }
 
+        // POST: RealEstate/Create
         [HttpPost]
         public async Task<IActionResult> Create(RealEstateCreateUpdateViewModel vm)
         {
@@ -74,6 +76,7 @@ namespace TARge25Shop.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: RealEstate/Update/5
         [HttpGet]
         public async Task<IActionResult> Update(Guid id)
         {
@@ -97,6 +100,7 @@ namespace TARge25Shop.Controllers
             return View("CreateUpdate", vm);
         }
 
+        // POST: RealEstate/Update
         [HttpPost]
         public async Task<IActionResult> Update(RealEstateCreateUpdateViewModel vm)
         {
@@ -121,6 +125,7 @@ namespace TARge25Shop.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET: RealEstate/Details/5
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -178,6 +183,20 @@ namespace TARge25Shop.Controllers
             vm.ModifiedAt = realEstate.ModifiedAt;
 
             return View(vm);
+        }
+
+        // POST: RealEstate/DeleteConfirmation
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmation(Guid id)
+        {
+            var realEstate = await _realEstateServices.Delete(id);
+
+            if (realEstate == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
