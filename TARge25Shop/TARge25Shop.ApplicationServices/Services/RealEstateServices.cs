@@ -9,6 +9,7 @@ namespace TARge25Shop.ApplicationServices.Services
     public class RealEstateServices : IRealEstateServices
     {
         private readonly TARge25ShopContext _context;
+        private readonly IFileServices _fileServices;
 
         public RealEstateServices
             (
@@ -29,6 +30,13 @@ namespace TARge25Shop.ApplicationServices.Services
             realEstate.BuildingType = dto.BuildingType;
             realEstate.CreatedAt = DateTime.Now;
             realEstate.ModifiedAt = DateTime.Now;
+
+            if (dto.Files != null)
+            {
+
+                _fileServices.UploadFilesToDatabase(dto, realEstate);
+               
+            }
 
             _context.RealEstates.Add(realEstate);
             await _context.SaveChangesAsync();
