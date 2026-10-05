@@ -149,18 +149,7 @@ namespace TARge25Shop.Controllers
             return View(vm);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteConfirmation(Guid id)
-        {
-            var realEstate = await _realEstateServices.Delete(id);
 
-            if (realEstate == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            return RedirectToAction(nameof(Index));
-        }
 
         [HttpGet]
         public async Task<IActionResult> Details(Guid id)
