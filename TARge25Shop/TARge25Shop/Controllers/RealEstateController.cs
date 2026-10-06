@@ -161,6 +161,8 @@ namespace TARge25Shop.Controllers
                 return NotFound();
             }
 
+            RealEstateImageViewModel[] images = await FileFromDatabase(id);
+
             var vm = new RealEstateDetailsViewModel();
 
             vm.Id = realEstate.Id;
@@ -170,6 +172,7 @@ namespace TARge25Shop.Controllers
             vm.BuildingType = realEstate.BuildingType;
             vm.CreatedAt = realEstate.CreatedAt;
             vm.ModifiedAt = realEstate.ModifiedAt;
+            vm.Images.AddRange(images);
 
             return View(vm);
         }
@@ -186,6 +189,21 @@ namespace TARge25Shop.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private async Task<RealEstateImageViewModel[]> FileFromDatabase(Guid id)
+        {
+            return await _context.FileToDatabases
+                .Where(x => x.RealEstateId == id)
+                .Select(y => new RealEstateImageViewModel
+                {
+                    ImageId = y.Id,
+                    ImageTitle = y.ImageTitle,
+                    ImageData = y.ImageData,
+                    RealEstateId = y.RealEstateId,
+                    Image = string.Format("data:image/gif;base64, {0}", 
+                        Convert.ToBase64String(y.ImageData))
+                )}.ToArrayAsync();
         }
     }
 }
