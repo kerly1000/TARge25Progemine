@@ -12,6 +12,9 @@
 
         public string BuildingType { get; set; } = string.Empty;
 
+        public List<RealEstateImageViewModel> Images { get; set; }
+            = new List<RealEstateImageViewModel>();
+
         public DateTime? CreatedAt { get; set; }
 
         public DateTime? ModifiedAt { get; set; }
